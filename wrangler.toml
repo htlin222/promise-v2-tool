@@ -1,0 +1,6 @@
+# Cloudflare Pages configuration for the PROMISE V2 report builder.
+# `wrangler pages deploy` and the CI action both read the project name and
+# build-output directory from here.
+name = "promise-v2"
+pages_build_output_dir = "dist"
+compatibility_date = "2025-01-01"
