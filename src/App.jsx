@@ -251,6 +251,11 @@ export default function App() {
 
       <Stepper step={step} setStep={setStep} />
 
+      <div className="codebar">
+        <span className="codebar-tag mono">miTNM</span>
+        <span className="codebar-val mono">{code}</span>
+      </div>
+
       <main className="sheet">
         <div className="sheet-head">
           <span className="sheet-axis mono">{current.axis}</span>
@@ -526,11 +531,6 @@ export default function App() {
           {/* -------- OUT : report -------- */}
           {current.key === 'OUT' && (
             <>
-              <div className="code-line">
-                <span className="code-line-tag mono">miTNM</span>
-                <span className="code-line-val mono">{code}</span>
-              </div>
-
               {gate.h !== null && (
                 <div className={`verdict ${gate.hasTarget ? 'pos' : 'neg'}`}>
                   {gate.hasTarget ? <CircleCheck size={17} strokeWidth={2} /> : <CircleSlash size={17} strokeWidth={2} />}
@@ -575,12 +575,6 @@ export default function App() {
             <ChevronLeft size={16} strokeWidth={1.9} />
             Back
           </button>
-
-          {!isLast && current.key !== 'OUT' && (
-            <span className="foot-code mono" title="miTNM code so far">
-              {code}
-            </span>
-          )}
 
           {isLast ? (
             <button type="button" className="btn btn-ghost" onClick={reset}>
