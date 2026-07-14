@@ -132,22 +132,20 @@ function Field({ label, hint, children }) {
 }
 
 /* ---------- stepper ---------- */
-function Stepper({ step, setStep, maxSeen }) {
+function Stepper({ step, setStep }) {
   return (
     <nav className="stepper" aria-label="Progress">
       <ol className="stepper-track">
         {STEPS.map((s, i) => {
           const Icon = s.icon
           const state = i === step ? 'current' : i < step ? 'done' : 'todo'
-          const reachable = i <= maxSeen
           return (
             <li key={s.key} className={`stepnode ${state}`}>
               <button
                 type="button"
                 className="stepnode-btn"
-                disabled={!reachable}
                 aria-current={state === 'current' ? 'step' : undefined}
-                onClick={() => reachable && setStep(i)}
+                onClick={() => setStep(i)}
               >
                 <span className="stepnode-mark">
                   {state === 'done' ? <Check size={15} strokeWidth={2.4} /> : <Icon size={15} strokeWidth={1.9} />}
@@ -166,14 +164,12 @@ function Stepper({ step, setStep, maxSeen }) {
 export default function App() {
   const [state, setState] = useState(initialState)
   const [step, setStepRaw] = useState(0)
-  const [maxSeen, setMaxSeen] = useState(0)
   const [copied, setCopied] = useState(false)
 
   const set = (patch) => setState((s) => ({ ...s, ...patch }))
   const setStep = (i) => {
     const n = Math.max(0, Math.min(STEPS.length - 1, i))
     setStepRaw(n)
-    setMaxSeen((m) => Math.max(m, n))
     if (typeof window !== 'undefined') window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
@@ -235,7 +231,6 @@ export default function App() {
   function reset() {
     setState(initialState)
     setStep(0)
-    setMaxSeen(0)
   }
 
   const current = STEPS[step]
@@ -254,7 +249,7 @@ export default function App() {
         </p>
       </header>
 
-      <Stepper step={step} setStep={setStep} maxSeen={maxSeen} />
+      <Stepper step={step} setStep={setStep} />
 
       <main className="sheet">
         <div className="sheet-head">
