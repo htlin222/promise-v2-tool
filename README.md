@@ -6,7 +6,7 @@ time — **T · N · M · expression · volume · response** — and the tool as
 It also flags the radioligand-therapy gate (expression score ≥2). Vite + React, no backend,
 no tracking.
 
-**Live:** https://promise-v2.hsiehting.com
+**Live:** https://promise-v2.pages.dev
 
 > Structured reading aid only — it does not make a diagnosis and does not replace review of the
 > source images.
@@ -29,18 +29,19 @@ Requires Node 18+.
 
 ## Deployment (Cloudflare Pages)
 
-The site deploys to Cloudflare Pages. The project name is **`promise-v2`** and the custom
-domain is **`promise-v2.hsiehting.com`** (see `wrangler.toml`).
+The site deploys to Cloudflare Pages. The project name is **`promise-v2`**, served at
+**`promise-v2.pages.dev`** (see `wrangler.toml`).
 
 ### Automatic (GitHub Actions)
 
-Every push to `main` builds and deploys via `.github/workflows/deploy.yml`. It needs two
-repository secrets:
+Every push to `main` builds via `.github/workflows/deploy.yml`. The deploy step activates
+once `CLOUDFLARE_API_TOKEN` is set; until then it is skipped and the build runs as a check.
+Required repository secrets:
 
-| Secret | Value |
-| --- | --- |
-| `CLOUDFLARE_API_TOKEN` | A token with **Account → Cloudflare Pages → Edit** |
-| `CLOUDFLARE_ACCOUNT_ID` | The Cloudflare account ID |
+| Secret | Value | Status |
+| --- | --- | --- |
+| `CLOUDFLARE_ACCOUNT_ID` | The Cloudflare account ID | set |
+| `CLOUDFLARE_API_TOKEN` | A token with **Account → Cloudflare Pages → Edit** | add to enable auto-deploy |
 
 ### Manual (wrangler)
 
